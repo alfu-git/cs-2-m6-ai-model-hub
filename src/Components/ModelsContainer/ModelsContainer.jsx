@@ -2,6 +2,7 @@ import React, { use, useState } from "react";
 import "./ModelsContainer.css";
 import ModelCard from "./ModelCard/ModelCard";
 import List from "./ListContainer/List";
+import { toast } from "react-toastify";
 
 const ModelsContainer = ({ modelDataPromise }) => {
   const modelData = use(modelDataPromise);
@@ -17,6 +18,16 @@ const ModelsContainer = ({ modelDataPromise }) => {
   const getSelectedCard = (model) => {
     setCartList([...cartList, model]);
     setTotalAmount(totalAmount + model.price);
+  };
+
+  const handlePaymentBtn = () => {
+    setCartList([]);
+
+    toast(
+      <span className="bg-linear-to-r from-green-400 to-blue-500 bg-clip-text text-transparent font-semibold">
+        Payment Successful!
+      </span>,
+    );
   };
 
   return (
@@ -94,9 +105,9 @@ const ModelsContainer = ({ modelDataPromise }) => {
 
                 <div className="space-y-6">
                   {cartList.map((list) => (
-                    <List 
-                      key={list.id} 
-                      list={list} 
+                    <List
+                      key={list.id}
+                      list={list}
                       cartList={cartList}
                       setCartList={setCartList}
                       totalAmount={totalAmount}
@@ -109,10 +120,15 @@ const ModelsContainer = ({ modelDataPromise }) => {
                   <span className="text-3xl font-bold text-base-100">
                     Total
                   </span>
-                  <span className="text-3xl text-red-400 font-bold">${totalAmount}</span>
+                  <span className="text-3xl text-red-400 font-bold">
+                    ${totalAmount}
+                  </span>
                 </div>
 
-                <button className="btn mt-8 py-9 w-full rounded-2xl bg-red-600 hover:bg-red-500 active:bg-red-700 shadow-xl shadow-red-500/30 text-base-100 text-2xl font-semibold">
+                <button
+                  onClick={handlePaymentBtn}
+                  className="btn mt-8 py-9 w-full rounded-2xl bg-red-600 hover:bg-red-500 active:bg-red-700 shadow-xl shadow-red-500/30 text-base-100 text-2xl font-semibold"
+                >
                   Proceed to Checkout
                 </button>
               </div>

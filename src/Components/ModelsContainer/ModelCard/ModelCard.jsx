@@ -14,7 +14,7 @@ const ModelCard = ({ model, getSelectedCard, cartList }) => {
             <span className="text-fuchsia-500 font-bold">{model.title}</span>{" "}
             added to cart!
           </p>
-        </div>,
+        </div>
       );
     } else {
       toast.warning(
