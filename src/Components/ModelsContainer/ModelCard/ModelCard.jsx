@@ -17,13 +17,13 @@ const ModelCard = ({ model, getSelectedCard, cartList }) => {
         </div>,
       );
     } else {
-      toast.error(
+      toast.warning(
         <div>
           <p>
             <span className="text-gray-400 font-bold">{model.title}</span>{" "}
             already in cart!
           </p>
-        </div>,
+        </div>
       );
     }
   };

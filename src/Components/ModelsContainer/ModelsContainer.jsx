@@ -8,6 +8,7 @@ const ModelsContainer = ({ modelDataPromise }) => {
 
   const [tabName, setTabName] = useState("model");
   const [cartList, setCartList] = useState([]);
+  const [totalAmount, setTotalAmount] = useState(0);
 
   const handleTabBtn = (tab) => {
     setTabName(tab);
@@ -15,6 +16,7 @@ const ModelsContainer = ({ modelDataPromise }) => {
 
   const getSelectedCard = (model) => {
     setCartList([...cartList, model]);
+    setTotalAmount(totalAmount + model.price);
   };
 
   return (
@@ -86,13 +88,20 @@ const ModelsContainer = ({ modelDataPromise }) => {
 
           {/* list container */}
           {tabName === "cart" && cartList.length !== 0 && (
-            <div className="max-w-4xl mx-auto px-6">
+            <div className="max-w-4xl mx-auto md:px-6">
               <div>
                 <h2 className="mb-10 text-5xl font-bold">Your Cart</h2>
 
                 <div className="space-y-6">
                   {cartList.map((list) => (
-                    <List key={list.id} list={list} />
+                    <List 
+                      key={list.id} 
+                      list={list} 
+                      cartList={cartList}
+                      setCartList={setCartList}
+                      totalAmount={totalAmount}
+                      setTotalAmount={setTotalAmount}
+                    />
                   ))}
                 </div>
 
@@ -100,7 +109,7 @@ const ModelsContainer = ({ modelDataPromise }) => {
                   <span className="text-3xl font-bold text-base-100">
                     Total
                   </span>
-                  <span className="text-3xl text-red-400 font-bold">$0</span>
+                  <span className="text-3xl text-red-400 font-bold">${totalAmount}</span>
                 </div>
 
                 <button className="btn mt-8 py-9 w-full rounded-2xl bg-red-600 hover:bg-red-500 active:bg-red-700 shadow-xl shadow-red-500/30 text-base-100 text-2xl font-semibold">

@@ -3,7 +3,7 @@ import BannerImage from "../../assets/banner.png";
 
 const Banner = () => {
   return (
-    <section>
+    <section className="container mx-auto px-5">
       <div>
         <div className="relative min-h-162.5 flex items-center overflow-hidden">
           <div className=" mx-auto grid grid-cols-1 lg:grid-cols-2 gap-10 items-center relative z-10">
