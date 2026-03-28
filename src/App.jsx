@@ -1,4 +1,5 @@
 import { Suspense } from 'react'
+  import { ToastContainer, toast } from 'react-toastify';
 import './App.css'
 import Banner from './Components/Banner/Banner'
 import ModelsContainer from './Components/ModelsContainer/ModelsContainer'
@@ -26,6 +27,9 @@ const modelDataPromise = getModelData();
       )}>
         <ModelsContainer modelDataPromise={modelDataPromise} />
       </Suspense>
+
+
+      <ToastContainer />
     </>
   )
 }

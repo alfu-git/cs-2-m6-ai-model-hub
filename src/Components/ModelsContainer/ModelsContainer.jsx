@@ -1,15 +1,20 @@
 import React, { use, useState } from "react";
 import "./ModelsContainer.css";
 import ModelCard from "./ModelCard/ModelCard";
+import List from "./ListContainer/List";
 
 const ModelsContainer = ({ modelDataPromise }) => {
   const modelData = use(modelDataPromise);
-  console.log(modelData);
 
   const [tabName, setTabName] = useState("model");
+  const [cartList, setCartList] = useState([]);
 
   const handleTabBtn = (tab) => {
     setTabName(tab);
+  };
+
+  const getSelectedCard = (model) => {
+    setCartList([...cartList, model]);
   };
 
   return (
@@ -36,7 +41,7 @@ const ModelsContainer = ({ modelDataPromise }) => {
                 `}
                 onClick={() => handleTabBtn("cart")}
               >
-                Cart <span>(0)</span>
+                Cart <span>({cartList.length})</span>
               </button>
             </div>
           </div>
@@ -59,20 +64,51 @@ const ModelsContainer = ({ modelDataPromise }) => {
               {/* card section */}
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                 {modelData.map((model) => (
-                  <ModelCard key={model.id} model={model} />
+                  <ModelCard
+                    key={model.id}
+                    model={model}
+                    cartList={cartList}
+                    getSelectedCard={getSelectedCard}
+                  />
                 ))}
               </div>
             </div>
           )}
 
           {/* empty dashboard */}
-          {
-            tabName === 'cart' && (
-              <div className="py-20">
-                <p className="text-4xl text-zinc-400 text-center">Your cart is empty</p>
+          {tabName === "cart" && cartList.length === 0 && (
+            <div className="py-20">
+              <p className="text-4xl text-zinc-400 text-center">
+                Your cart is empty
+              </p>
+            </div>
+          )}
+
+          {/* list container */}
+          {tabName === "cart" && cartList.length !== 0 && (
+            <div className="max-w-4xl mx-auto px-6">
+              <div>
+                <h2 className="mb-10 text-5xl font-bold">Your Cart</h2>
+
+                <div className="space-y-6">
+                  {cartList.map((list) => (
+                    <List key={list.id} list={list} />
+                  ))}
+                </div>
+
+                <div className="mt-12 mb-6 p-8 bg-[#18181B] border border-zinc-700 rounded-3xl flex justify-between">
+                  <span className="text-3xl font-bold text-base-100">
+                    Total
+                  </span>
+                  <span className="text-3xl text-red-400 font-bold">$0</span>
+                </div>
+
+                <button className="btn mt-8 py-9 w-full rounded-2xl bg-red-600 hover:bg-red-500 active:bg-red-700 shadow-xl shadow-red-500/30 text-base-100 text-2xl font-semibold">
+                  Proceed to Checkout
+                </button>
               </div>
-            )
-          }
+            </div>
+          )}
         </div>
       </div>
     </section>
