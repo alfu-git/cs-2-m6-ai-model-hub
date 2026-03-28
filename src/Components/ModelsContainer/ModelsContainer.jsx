@@ -1,11 +1,16 @@
-import React, { use } from "react";
+import React, { use, useState } from "react";
 import "./ModelsContainer.css";
 import ModelCard from "./ModelCard/ModelCard";
 
-const ModelsContainer = ({modelDataPromise}) => {
-
+const ModelsContainer = ({ modelDataPromise }) => {
   const modelData = use(modelDataPromise);
   console.log(modelData);
+
+  const [tabName, setTabName] = useState("model");
+
+  const handleTabBtn = (tab) => {
+    setTabName(tab);
+  };
 
   return (
     <section className="mb-20 container mx-auto px-5 border-t border-[gray]/10 rounded-t-xl p-2">
@@ -18,16 +23,20 @@ const ModelsContainer = ({modelDataPromise}) => {
               <div className="flex">
                 <button
                   className={`
-                  btn w-25 sm:w-50 tab-active
+                  btn w-25 sm:w-50
+                  ${tabName === "model" ? "tab-active" : "tab-inactive"}
                 `}
+                  onClick={() => handleTabBtn("model")}
                 >
                   Models
                 </button>
 
                 <button
                   className={`
-                  btn w-25 sm:w-50 tab-inactive
+                  btn w-25 sm:w-50
+                  ${tabName === "cart" ? "tab-active" : "tab-inactive"}
                 `}
+                  onClick={() => handleTabBtn("cart")}
                 >
                   Cart <span>(0)</span>
                 </button>
@@ -48,11 +57,13 @@ const ModelsContainer = ({modelDataPromise}) => {
           </div>
 
           {/* card section */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {
-              modelData.map(model => (<ModelCard key={model.id} model={model} />))
-            }
-          </div>
+          {tabName === "model" && (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              {modelData.map((model) => (
+                <ModelCard key={model.id} model={model} />
+              ))}
+            </div>
+          )}
         </div>
       </div>
     </section>
