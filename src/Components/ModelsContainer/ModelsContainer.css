@@ -1,0 +1,18 @@
+.tab-active {
+  padding: 8px 12px;
+  width: 200px;
+  background: linear-gradient(to right, #ec4899, #ef4444);
+  border-radius: 999px;
+  color: white;
+  display: inline-block;
+  text-align: center;
+}
+
+.tab-inactive {
+  padding: 8px 12px;
+  width: 200px;
+  border-radius: 999px;
+  color: gray;
+  display: inline-block;
+  text-align: center;
+}
