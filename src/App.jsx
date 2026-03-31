@@ -7,7 +7,7 @@ import Navbar from "./Components/Navbar/Navbar";
 import Footer from "./Components/Footer/Footer";
 
 const getModelData = async () => {
-  const fetchModelData = await fetch("../public/models.json");
+  const fetchModelData = await fetch("/models.json");
   return fetchModelData.json();
 };
 
